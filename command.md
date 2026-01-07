@@ -1,4 +1,4 @@
-### 0) چک سریع فضای درایو C و بزرگ‌ترین پوشه‌ها 
+# 0) چک سریع فضای درایو C و بزرگ‌ترین پوشه‌ها 
 
 بررسی فضای خالی و مصرف‌شده‌ی C
 
@@ -6,13 +6,13 @@
 Get-PSDrive C | Select-Object Name,@{n="Free(GB)";e={[math]::Round($_.Free/1GB,2)}},@{n="Used(GB)";e={[math]::Round(($_.Used)/1GB,2)}}
 ```
 
-# چه می‌کند؟
+### چه می‌کند؟
 
 میزان Free و Used درایو C را بر حسب گیگابایت نشان می‌دهد
 
 بدون هیچ تغییری، فقط گزارش
 
-### بزرگ‌ترین پوشه‌های ریشه C
+# بزرگ‌ترین پوشه‌های ریشه C
 
 ```bash
 Get-ChildItem C:\ -Force -Directory |
@@ -22,7 +22,7 @@ Get-ChildItem C:\ -Force -Directory |
   } | Sort-Object GB -Descending | Select-Object -First 15 | Format-Table -AutoSize
 ```
 
-# چه می‌کند؟
+### چه می‌کند؟
 
 پوشه‌های سطح اول C:\ را بررسی می‌کند
 
@@ -32,13 +32,13 @@ Get-ChildItem C:\ -Force -Directory |
 
 لینک‌های سیستمی (ReparsePoint) نادیده گرفته می‌شوند
 
-### 1) پاکسازی‌های امن (هیچ دیتای مهمی حذف نمی‌شود)
+# 1) پاکسازی‌های امن (هیچ دیتای مهمی حذف نمی‌شود)
 
-# خالی کردن Recycle Bin
+### خالی کردن Recycle Bin
 ```bash
 Clear-RecycleBin -Force
 ```
-# چه می‌کند؟
+### چه می‌کند؟
 
 سطل زباله ویندوز را کاملاً پاک می‌کند
 
@@ -49,7 +49,7 @@ Remove-Item "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-# چه می‌کند؟
+### چه می‌کند؟
 
 فایل‌های موقتی کاربر و سیستم را حذف می‌کند
 
@@ -63,7 +63,7 @@ Remove-Item "C:\Users\r.babanezhad\AppData\Local\Temp\wsl-crashes\*" -Recurse -F
 Remove-Item "C:\Users\r.babanezhad\AppData\Local\Microsoft\Terminal Server Client\Cache\*" -Force -ErrorAction SilentlyContinue
 ```
 
-# چه می‌کند؟
+### چه می‌کند؟
 
 لاگ‌های کرش WSL
 
@@ -71,9 +71,9 @@ Remove-Item "C:\Users\r.babanezhad\AppData\Local\Microsoft\Terminal Server Clien
 
 کاملاً امن
 
-2) ریز کردن پروفایل کاربر r.babanezhad
+# 2) ریز کردن پروفایل کاربر r.babanezhad
    
-بزرگ‌ترین پوشه‌های داخل پروفایل
+# بزرگ‌ترین پوشه‌های داخل پروفایل
 
 ```bash
 
@@ -84,13 +84,13 @@ Get-ChildItem $u -Force -Directory |
     [pscustomobject]@{Folder=$_.FullName; GB=[math]::Round(($s/1GB),2)}
   } | Sort-Object GB -Descending | Select-Object -First 20 | Format-Table -AutoSize
 ```
-چه می‌کند؟
+### چه می‌کند؟
 
 پوشه‌های اصلی داخل پروفایل کاربر را بررسی می‌کند
 
 نشان می‌دهد کدام فولدر بیشترین فضا را گرفته (Downloads، AppData، Desktop و …)
 
-شکار فایل‌های حجیم داخل پروفایل
+# شکار فایل‌های حجیم داخل پروفایل
 
 
 
@@ -102,7 +102,7 @@ Get-ChildItem $u -Recurse -Force -File -Attributes !ReparsePoint -ErrorAction Si
   Format-Table -AutoSize
 ```
 
-چه می‌کند؟
+### چه می‌کند؟
 
 ۳۰ فایل بزرگ‌تر داخل پروفایل را لیست می‌کند
 
